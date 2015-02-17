@@ -609,3 +609,922 @@ a.cke_path_item:active {
 .cke_chrome { visibility: inherit }
 .cke_voice_label { display: none }
 legend.cke_voice_label { display: none }
+
+
+/*Panel.css From Mono Theme*/
+/*https://raw.githubusercontent.com/ckeditor/ckeditor-dev/master/skins/moono/panel.css*/
+/*
+*******************************************************************************************
+*/
+
+
+/*
+Copyright (c) 2003-2015, CKSource - Frederico Knabben. All rights reserved.
+For licensing, see LICENSE.md or http://ckeditor.com/license
+*/
+
+/*
+panel.css (part of editor.css)
+================================
+
+Panels are floating elements that can hold different types of contents.
+The following are common uses of it:
+
+    - The element that toolbar combos display when opening them.
+    - The context menu.
+    - The list of items displayed by "menu buttons" (e.g. scayt).
+    - The panel shown when opening "panel buttons" (e.g. color buttons).
+
+Panel contents are wrapped into an iframe, so it is possible to have additional
+CSS loaded inside them (e.g. to have more accurate preview on the styles combo).
+
+The following is a visual representation of the outer elements of a panel:
+
++-- .cke_panel(*) ---------------------+
+| +-- IFRAME.cke_panel_frame --------+ |
+| | +-- HTML.cke_panel_container --+ | |
+| | | +-- .cke_panel_block ------+ | | |
+| | | |                          | | | |
+| | | |     (contents here)      | | | |
+| | | |                          | | | |
+| | | +--------------------------+ | | |
+| | +------------------------------+ | |
+| +----------------------------------+ |
++--------------------------------------+
+
+(*) All kinds of panel share the above structure. Menu panels adds the
+    .cke_menu_panel class to the outer element, while toolbar combos add the
+    .cke_combopanel class.
+
+This file also defines styles for panel lists (used by combos). For menu-like
+panel contents and color panels check menu.css and colorpanel.css.
+*/
+
+/* The box that holds an IFRAME. It's inserted into a host document and positioned
+   absolutely by the application. It floats above the host document/editor. */
+.cke_panel
+{
+    /* Restore the loading hide */
+    visibility: visible;
+    width: 120px;
+    height: 100px;
+    overflow: hidden;
+
+    background-color: #fff;
+    border: 1px solid #b6b6b6;
+    border-bottom-color: #999;
+
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+
+    -moz-box-shadow: 0 0 3px rgba(0,0,0,.15);
+    -webkit-box-shadow: 0 0 3px rgba(0,0,0,.15);
+    box-shadow: 0 0 3px rgba(0,0,0,.15);
+}
+
+/* This class represents panels which are used as context menus. */
+.cke_menu_panel
+{
+    padding: 0;
+    margin: 0;
+}
+
+/* This class represents panels which are used by rich combos. */
+.cke_combopanel
+{
+    width: 150px;
+    height: 170px;
+}
+
+/* The IFRAME the panel is wrapped into. */
+.cke_panel_frame
+{
+    width: 100%;
+    height: 100%;
+    font-size: 12px;
+
+    overflow: auto;
+    overflow-x: hidden;
+}
+
+/* The HTML document which is a direct descendant of the IFRAME */
+.cke_panel_container
+{
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+/*
+Here we start the definition of panel lists (e.g. combo panels). The following
+is its visual representation:
+
++-- .cke_panel_block -----------------+
+| +-- .cke_panel_grouptitle --------+ |
+| |                                 | |
+| +---------------------------------+ |
+| +-- .cke_panel_list --------------+ |
+| | +-- .cke_panel_listItem ------+ | |
+| | | +-- a --------------------+ | | |
+| | | | +-- span -------------+ | | | |
+| | | | |                     | | | | |
+| | | | +---------------------+ | | | |
+| | | +-------------------------+ | | |
+| | +-----------------------------+ | |
+| | +-- .cke_panel_listItem ------+ | |
+| | | +-- a --------------------+ | | |
+| | | | +-- span -------------+ | | | |
+| | | | |                     | | | | |
+| | | | +---------------------+ | | | |
+| | | +-------------------------+ | | |
+| | +-----------------------------+ | |
+| | ...                             | |
+| +---------------------------------+ |
++-------------------------------------+
+*/
+
+
+/* The list of panel items. */
+.cke_panel_list
+{
+    list-style-type: none;
+    margin: 3px;
+    padding: 0;
+    white-space: nowrap;
+}
+
+/* The item of .cke_panel_list */
+.cke_panel_listItem
+{
+    margin: 0;
+    padding-bottom: 1px;
+}
+
+/* The child of .cke_panel_listItem. These elements contain spans which are
+   to display a real name of the property which is visible for an end-user. */
+.cke_panel_listItem a
+{
+    padding: 3px 4px;
+    display: block;
+    border: 1px solid #fff;
+    color: inherit !important;
+    text-decoration: none;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+}
+
+/* IE6 */
+* html .cke_panel_listItem a
+{
+    width : 100%;
+
+    /* IE is not able to inherit the color, so we must force it to black */
+    color: #000;
+}
+
+/* IE7 */
+*:first-child+html .cke_panel_listItem a
+{
+    /* IE is not able to inherit the color, so we must force it to black */
+    color: #000;
+}
+
+.cke_panel_listItem.cke_selected a
+{
+    border: 1px solid #dedede;
+    background-color: #f2f2f2;
+
+    -moz-box-shadow: 0 0 2px rgba(0,0,0,.1) inset;
+    -webkit-box-shadow: 0 0 2px rgba(0,0,0,.1) inset;
+    box-shadow: 0 0 2px rgba(0,0,0,.1) inset;
+}
+
+.cke_panel_listItem a:hover,
+.cke_panel_listItem a:focus,
+.cke_panel_listItem a:active
+{
+    border-color: #dedede;
+    background-color: #f2f2f2;
+
+    -moz-box-shadow: 0 0 2px rgba(0,0,0,.1) inset;
+    -webkit-box-shadow: 0 0 2px rgba(0,0,0,.1) inset;
+    box-shadow: 0 0 2px rgba(0,0,0,.1) inset;
+}
+
+.cke_hc .cke_panel_listItem a
+{
+    border-style: none;
+}
+
+.cke_hc .cke_panel_listItem a:hover,
+.cke_hc .cke_panel_listItem a:focus,
+.cke_hc .cke_panel_listItem a:active
+{
+    border: 2px solid;
+    padding: 1px 2px;
+}
+
+/* The title of the entire panel which is visible on top of the list. */
+.cke_panel_grouptitle
+{
+    cursor: default;
+    font-size: 11px;
+    font-weight: bold;
+    white-space: nowrap;
+    margin: 0;
+    padding: 4px 6px;
+
+    color: #474747;
+    text-shadow: 0 1px 0 rgba(255,255,255,.75);
+    border-bottom: 1px solid #b6b6b6;
+
+    -moz-border-radius: 2px 2px 0 0;
+    -webkit-border-radius: 2px 2px 0 0;
+    border-radius: 2px 2px 0 0;
+
+    -moz-box-shadow: 0 1px 0 #fff inset;
+    -webkit-box-shadow: 0 1px 0 #fff inset;
+    box-shadow: 0 1px 0 #fff inset;
+
+    background: #cfd1cf;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#f5f5f5), to(#cfd1cf));
+    background-image: -moz-linear-gradient(top, #f5f5f5, #cfd1cf);
+    background-image: -webkit-linear-gradient(top, #f5f5f5, #cfd1cf);
+    background-image: -o-linear-gradient(top, #f5f5f5, #cfd1cf);
+    background-image: -ms-linear-gradient(top, #f5f5f5, #cfd1cf);
+    background-image: linear-gradient(top, #f5f5f5, #cfd1cf);
+    filter: progid:DXImageTransform.Microsoft.gradient(gradientType=0, startColorstr='#f5f5f5', endColorstr='#cfd1cf');
+}
+
+/* The following styles set defaults of the elements used by the Paragraph
+   Format panel. */
+.cke_panel_listItem p,
+.cke_panel_listItem h1,
+.cke_panel_listItem h2,
+.cke_panel_listItem h3,
+.cke_panel_listItem h4,
+.cke_panel_listItem h5,
+.cke_panel_listItem h6,
+.cke_panel_listItem pre
+{
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+
+/*Menu.css From Mono Theme*/
+/*https://raw.githubusercontent.com/ckeditor/ckeditor-dev/master/skins/moono/panel.css*/
+/*
+*******************************************************************************************
+*/
+
+/*
+Copyright (c) 2003-2015, CKSource - Frederico Knabben. All rights reserved.
+For licensing, see LICENSE.md or http://ckeditor.com/license
+*/
+
+/*
+menu.css (part of editor.css)
+===============================
+
+This file styles menus used in the editor UI. These menus are the list of
+options available inside some "floating panels", like menu buttons of the
+toolbar or the context menu.
+
+Note that the menu itself doesn't include the floating element that holds it.
+That element is styles in the panel.css file.
+
+The following is a visual representation of the main elements of a menu:
+
++-- .cke_menu -----------------+
+| +-- .cke_menuitem  --------+ |
+| | +-- .cke_menubutton ---+ | |
+| | |                      | | |
+| | +----------------------+ | |
+| +--------------------------+ |
+| +-- .cke_menuseparator ----+ |
+| ...                          |
++------------------------------+
+
+This is the .cke_menubutton structure:
+(Note that the menu button icon shares with toolbar button the common class .cke_button_icon to achieve the same outlook.)
+
++-- .cke_menubutton -------------------------------------------------------------------------+
+| +-- .cke_menubutton_inner ---------------------------------------------------------------+ |
+| | +-- .cke_menubutton_icon ---+ +-- .cke_menubutton_label --+ +-- .cke_cke_menuarrow --+ | |
+| | | +-- .cke_button_icon ---+ | |                           | |                        | | |
+| | | |                       | | |                           | |                        | | |
+| | | +-----------------------+ | |                           | |                        | | |
+| | +---------------------------+ +---------------------------+ +------------------------+ | |
+| +----------------------------------------------------------------------------------------+ |
++--------------------------------------------------------------------------------------------+
+
+Special outer level classes used in this file:
+
+    .cke_hc: Available when the editor is rendered on "High Contrast".
+    .cke_rtl: Available when the editor UI is on RTL.
+*/
+
+/* .cke_menuitem is the element that holds the entire structure of each of the
+   menu items. */
+
+.cke_menubutton
+{
+    /* The "button" inside a menu item is a <a> element.
+       Transforms it into a block. */
+    display: block;
+}
+
+.cke_menuitem span
+{
+    /* Avoid the text selection cursor inside menu items. */
+    cursor: default;
+}
+
+.cke_menubutton:hover,
+.cke_menubutton:focus,
+.cke_menubutton:active
+{
+    background-color: #D3D3D3;
+    display: block;
+}
+
+.cke_hc .cke_menubutton
+{
+    padding: 2px;
+}
+
+.cke_hc .cke_menubutton:hover,
+.cke_hc .cke_menubutton:focus,
+.cke_hc .cke_menubutton:active
+{
+    border: 2px solid;
+    padding: 0;
+}
+
+.cke_menubutton_inner {
+    display: table-row;
+}
+
+.cke_menubutton_icon,
+.cke_menubutton_label,
+.cke_menuarrow {
+    display: table-cell;
+}
+
+/* The menu item icon. */
+.cke_menubutton_icon
+{
+    background-color: #D7D8D7;
+    opacity: 0.70; /* Safari, Opera and Mozilla */
+    filter: alpha(opacity=70); /* IE */
+    padding: 4px;
+}
+
+.cke_hc .cke_menubutton_icon
+{
+    height: 16px;
+    width: 0;
+    padding: 4px 0;
+}
+
+.cke_menubutton:hover .cke_menubutton_icon,
+.cke_menubutton:focus .cke_menubutton_icon,
+.cke_menubutton:active .cke_menubutton_icon
+{
+    background-color: #D0D2D0;
+}
+
+.cke_menubutton_disabled:hover .cke_menubutton_icon,
+.cke_menubutton_disabled:focus .cke_menubutton_icon,
+.cke_menubutton_disabled:active .cke_menubutton_icon
+{
+    /* The icon will get opacity as well when hovered. */
+    opacity: 0.3;
+    filter: alpha(opacity=30);
+}
+
+/* The textual part of each menu item. */
+.cke_menubutton_label
+{
+    padding: 0 5px;
+    background-color: transparent;
+    width: 100%;
+    vertical-align: middle;
+}
+
+.cke_menubutton_disabled .cke_menubutton_label
+{
+    /* Greyed label text indicates a disabled menu item. */
+    opacity: 0.3;
+    filter: alpha(opacity=30);
+}
+
+.cke_menubutton_on
+{
+    border: 1px solid #dedede;
+    background-color: #f2f2f2;
+
+    -moz-box-shadow: 0 0 2px rgba(0,0,0,.1) inset;
+    -webkit-box-shadow: 0 0 2px rgba(0,0,0,.1) inset;
+    box-shadow: 0 0 2px rgba(0,0,0,.1) inset;
+}
+
+.cke_menubutton_on .cke_menubutton_icon
+{
+    padding-right: 3px;
+}
+
+.cke_menubutton:hover,
+.cke_menubutton:focus,
+.cke_menubutton:active
+{
+    background-color: #EFF0EF;
+}
+
+.cke_panel_frame .cke_menubutton_label
+{
+    display: none;
+}
+
+/* The separator used to separate menu item groups. */
+.cke_menuseparator
+{
+    background-color: #D3D3D3;
+    height: 1px;
+    filter: alpha(opacity=70); /* IE */
+    opacity: 0.70; /* Safari, Opera and Mozilla */
+}
+
+/* The small arrow shown for item with sub-menus. */
+.cke_menuarrow
+{
+    background-image: url(images/arrow.png);
+    background-position: 0 10px;
+    background-repeat: no-repeat;
+    padding: 0 5px;
+}
+
+.cke_rtl .cke_menuarrow
+{
+    background-position: 5px -13px;
+    background-repeat: no-repeat;
+}
+
+.cke_menuarrow span
+{
+    display: none;
+}
+
+.cke_hc .cke_menuarrow span
+{
+    vertical-align: middle;
+    display: inline;
+}
+
+
+
+/*Toolbar.css From Mono Theme*/
+/*https://raw.githubusercontent.com/ckeditor/ckeditor-dev/master/skins/moono/toolbar.css*/
+/*
+*******************************************************************************************
+*/
+
+/*
+Copyright (c) 2003-2015, CKSource - Frederico Knabben. All rights reserved.
+For licensing, see LICENSE.md or http://ckeditor.com/license
+*/
+
+/*
+toolbar.css (part of editor.css)
+==================================
+
+This files styles the CKEditor toolbar and its buttons. For toolbar combo
+styles, check richcombo.css.
+
+The toolbar is rendered as a big container (called toolbox), which contains
+smaller "toolbars". Each toolbar represents a group of items that cannot be
+separated. The following is the visual representation of the toolbox.
+
++-- .cke_toolbox ----------------------------------------------------------+
+| +-- .cke_toolbar --+ +-- .cke_toolbar --+ ... +-- .cke_toolbar_break --+ |
+| |                  | |                  |     |                        | |
+| +------------------+ +------------------+     +------------------------+ |
+| +-- .cke_toolbar --+ +-- .cke_toolbar --+ ...                            |
+| |                  | |                  |                                |
+| +------------------+ +------------------+                                |
++--------------------------------------------------------------------------+
+
+The following instead is the visual representation of a single toolbar:
+
++-- .cke_toolbar ----------------------------------------------------------------+
+| +-- .cke_toolbar_start --+ +-- .cke_toolgroup (*) --+ +-- .cke_toolbar_end --+ |
+| |                        | |                        | |                      | |
+| +------------------------+ +------------------------+ +----------------------+ |
++--------------------------------------------------------------------------------+
+(*) .cke_toolgroup is available only when the toolbar items can be grouped
+    (buttons). If the items can't be group (combos), this box is not available
+    and the items are rendered straight in that place.
+
+This file also styles toolbar buttons, which are rendered inside the above
+.cke_toolgroup containers. This is the visual representation of a button:
+
++-- .cke_button -------------------------------------+
+| +-- .cke_button_icon --+ +-- .cke_button_label --+ |
+| |                      | |                       | |
+| +----------------------+ +-----------------------+ |
++----------------------------------------------------+
+
+Special outer level classes used in this file:
+
+    .cke_hc: Available when the editor is rendered on "High Contrast".
+    .cke_rtl: Available when the editor UI is on RTL.
+*/
+
+/* The box that holds each toolbar. */
+.cke_toolbar
+{
+    float: left;
+}
+
+.cke_rtl .cke_toolbar
+{
+    float: right;
+}
+
+/* The box that holds buttons. */
+.cke_toolgroup
+{
+    float: left;
+    margin: 0 6px 5px 0;
+    border: 1px solid #a6a6a6;
+    border-bottom-color: #979797;
+
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+
+    -moz-box-shadow: 0 1px 0 rgba(255,255,255,.5), 0 0 2px rgba(255,255,255,.15) inset, 0 1px 0 rgba(255,255,255,.15) inset;
+    -webkit-box-shadow: 0 1px 0 rgba(255,255,255,.5), 0 0 2px rgba(255,255,255,.15) inset, 0 1px 0 rgba(255,255,255,.15) inset;
+    box-shadow: 0 1px 0 rgba(255,255,255,.5), 0 0 2px rgba(255,255,255,.15) inset, 0 1px 0 rgba(255,255,255,.15) inset;
+
+    background: #e4e4e4;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(#e4e4e4));
+    background-image: -moz-linear-gradient(top, #ffffff, #e4e4e4);
+    background-image: -webkit-linear-gradient(top, #ffffff, #e4e4e4);
+    background-image: -o-linear-gradient(top, #ffffff, #e4e4e4);
+    background-image: -ms-linear-gradient(top, #ffffff, #e4e4e4);
+    background-image: linear-gradient(top, #ffffff, #e4e4e4);
+    filter: progid:DXImageTransform.Microsoft.gradient(gradientType=0, startColorstr='#ffffff', endColorstr='#e4e4e4');
+}
+
+.cke_hc .cke_toolgroup
+{
+    border: 0;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+.cke_rtl .cke_toolgroup
+{
+    float: right;
+    margin-left: 6px;
+    margin-right: 0;
+}
+
+/* A toolbar button . */
+a.cke_button
+{
+    display: inline-block;
+    height: 18px;
+    padding: 4px 6px;
+    outline: none;
+    cursor: default;
+    float: left;
+    border: 0;
+}
+
+.cke_ltr .cke_button:last-child,
+.cke_rtl .cke_button:first-child
+{
+    /* Don't distort parent's rounded border. */
+    -moz-border-radius: 0 2px 2px 0;
+    -webkit-border-radius: 0 2px 2px 0;
+    border-radius: 0 2px 2px 0;
+}
+
+.cke_ltr .cke_button:first-child,
+.cke_rtl .cke_button:last-child
+{
+    /* Don't distort parent's rounded border. */
+    -moz-border-radius: 2px 0 0 2px;
+    -webkit-border-radius: 2px 0 0 2px;
+    border-radius: 2px 0 0 2px;
+}
+
+.cke_rtl .cke_button
+{
+    float: right;
+}
+
+.cke_hc .cke_button
+{
+    border: 1px solid black;
+
+    /* Compensate the added border */
+    padding: 3px 5px;
+    margin: -2px 4px 0 -2px;
+}
+
+/* This class is applied to the button when it is "active" (pushed).
+   This style indicates that the feature associated with the button is active
+   i.e. currently writing in bold or when spell checking is enabled. */
+.cke_button_on
+{
+    -moz-box-shadow: 0 1px 5px rgba(0,0,0,.6) inset, 0 1px 0 rgba(0,0,0,.2);
+    -webkit-box-shadow: 0 1px 5px rgba(0,0,0,.6) inset, 0 1px 0 rgba(0,0,0,.2);
+    box-shadow: 0 1px 5px rgba(0,0,0,.6) inset, 0 1px 0 rgba(0,0,0,.2);
+
+    background: #b5b5b5;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#aaa), to(#cacaca));
+    background-image: -moz-linear-gradient(top, #aaa, #cacaca);
+    background-image: -webkit-linear-gradient(top, #aaa, #cacaca);
+    background-image: -o-linear-gradient(top, #aaa, #cacaca);
+    background-image: -ms-linear-gradient(top, #aaa, #cacaca);
+    background-image: linear-gradient(top, #aaa, #cacaca);
+    filter: progid:DXImageTransform.Microsoft.gradient(gradientType=0, startColorstr='#aaaaaa', endColorstr='#cacaca');
+}
+
+.cke_hc .cke_button_on,
+.cke_hc a.cke_button_off:hover,
+.cke_hc a.cke_button_off:focus,
+.cke_hc a.cke_button_off:active,
+.cke_hc a.cke_button_disabled:hover,
+.cke_hc a.cke_button_disabled:focus,
+.cke_hc a.cke_button_disabled:active
+{
+    border-width: 3px;
+
+    /* Compensate the border change */
+    padding: 1px 3px;
+}
+
+/* This class is applied to the button when the feature associated with the
+   button cannot be used (grayed-out).
+   i.e. paste button remains disabled when there is nothing in the clipboard to
+   be pasted. */
+.cke_button_disabled .cke_button_icon
+{
+    opacity: 0.3;
+}
+
+.cke_hc .cke_button_disabled
+{
+    opacity: 0.5;
+}
+
+a.cke_button_on:hover,
+a.cke_button_on:focus,
+a.cke_button_on:active
+{
+    -moz-box-shadow: 0 1px 6px rgba(0,0,0,.7) inset, 0 1px 0 rgba(0,0,0,.2);
+    -webkit-box-shadow: 0 1px 6px rgba(0,0,0,.7) inset, 0 1px 0 rgba(0,0,0,.2);
+    box-shadow: 0 1px 6px rgba(0,0,0,.7) inset, 0 1px 0 rgba(0,0,0,.2);
+}
+
+a.cke_button_off:hover,
+a.cke_button_off:focus,
+a.cke_button_off:active,
+a.cke_button_disabled:hover,
+a.cke_button_disabled:focus,
+a.cke_button_disabled:active
+{
+    -moz-box-shadow: 0 0 1px rgba(0,0,0,.3) inset;
+    -webkit-box-shadow: 0 0 1px rgba(0,0,0,.3) inset;
+    box-shadow: 0 0 1px rgba(0,0,0,.3) inset;
+
+    background: #ccc;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#f2f2f2), to(#ccc));
+    background-image: -moz-linear-gradient(top, #f2f2f2, #ccc);
+    background-image: -webkit-linear-gradient(top, #f2f2f2, #ccc);
+    background-image: -o-linear-gradient(top, #f2f2f2, #ccc);
+    background-image: -ms-linear-gradient(top, #f2f2f2, #ccc);
+    background-image: linear-gradient(top, #f2f2f2, #ccc);
+    filter: progid:DXImageTransform.Microsoft.gradient(gradientType=0, startColorstr='#f2f2f2', endColorstr='#cccccc');
+}
+
+/* The icon which is a visual representation of the button. */
+.cke_button_icon
+{
+    cursor: inherit;
+    background-repeat: no-repeat;
+    margin-top: 1px;
+    width: 16px;
+    height: 16px;
+    float: left;
+    display: inline-block;
+}
+
+.cke_rtl .cke_button_icon
+{
+    float: right;
+}
+
+.cke_hc .cke_button_icon
+{
+    display: none;
+}
+
+/* The label of the button that stores the name of the feature. By default,
+   labels are invisible. They can be revealed on demand though. */
+.cke_button_label
+{
+    display: none;
+    padding-left: 3px;
+    margin-top: 1px;
+    line-height: 17px;
+    vertical-align: middle;
+    float: left;
+    cursor: default;
+    color: #474747;
+    text-shadow: 0 1px 0 rgba(255,255,255,.5);
+}
+
+.cke_rtl .cke_button_label
+{
+    padding-right: 3px;
+    padding-left: 0;
+    float: right;
+}
+
+.cke_hc .cke_button_label
+{
+    padding: 0;
+    display: inline-block;
+    font-size: 12px;
+}
+
+/* The small arrow available on buttons that can be expanded
+   (e.g. the color buttons). */
+.cke_button_arrow
+{
+    /* Arrow in CSS */
+    display: inline-block;
+    margin: 8px 0 0 1px;
+    width: 0;
+    height: 0;
+    cursor: default;
+    vertical-align: top;
+    border-left: 3px solid transparent;
+    border-right: 3px solid transparent;
+    border-top: 3px solid #474747;
+}
+
+.cke_rtl .cke_button_arrow
+{
+    margin-right: 5px;
+    margin-left: 0;
+}
+
+.cke_hc .cke_button_arrow
+{
+    font-size: 10px;
+    margin: 3px -2px 0 3px;
+    width: auto;
+    border: 0;
+}
+
+/* The vertical separator which is used within a single toolbar to split
+   buttons into sub-groups. */
+.cke_toolbar_separator
+{
+    float: left;
+    background-color: #c0c0c0;
+    background-color: rgba(0,0,0,.2);
+    margin: 5px 2px 0;
+    height: 18px;
+    width: 1px;
+
+    -webkit-box-shadow: 1px 0 1px rgba(255,255,255,.5);
+    -moz-box-shadow: 1px 0 1px rgba(255,255,255,.5);
+    box-shadow: 1px 0 1px rgba(255,255,255,.5);
+}
+
+.cke_rtl .cke_toolbar_separator
+{
+    float: right;
+
+    -webkit-box-shadow: -1px 0 1px rgba(255,255,255,.1);
+    -moz-box-shadow: -1px 0 1px rgba(255,255,255,.1);
+    box-shadow: -1px 0 1px rgba(255,255,255,.1);
+}
+
+.cke_hc .cke_toolbar_separator
+{
+    width: 0;
+    border-left: 1px solid;
+    margin: 1px 5px 0 0px;
+}
+
+/* The dummy element that breaks toolbars.
+   Once it is placed, the very next toolbar is moved to the new row. */
+.cke_toolbar_break
+{
+    display: block;
+    clear: left;
+}
+
+.cke_rtl .cke_toolbar_break
+{
+    clear: right;
+}
+
+/* The button, which when clicked hides (collapses) all the toolbars. */
+.cke_toolbox_collapser
+{
+    width: 12px;
+    height: 11px;
+    float: right;
+    margin: 11px 0 0;
+    font-size: 0;
+    cursor: default;
+    text-align: center;
+
+    border: 1px solid #a6a6a6;
+    border-bottom-color: #979797;
+
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+
+    -moz-box-shadow: 0 1px 0 rgba(255,255,255,.5), 0 0 2px rgba(255,255,255,.15) inset, 0 1px 0 rgba(255,255,255,.15) inset;
+    -webkit-box-shadow: 0 1px 0 rgba(255,255,255,.5), 0 0 2px rgba(255,255,255,.15) inset, 0 1px 0 rgba(255,255,255,.15) inset;
+    box-shadow: 0 1px 0 rgba(255,255,255,.5), 0 0 2px rgba(255,255,255,.15) inset, 0 1px 0 rgba(255,255,255,.15) inset;
+
+    background: #e4e4e4;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(#e4e4e4));
+    background-image: -moz-linear-gradient(top, #ffffff, #e4e4e4);
+    background-image: -webkit-linear-gradient(top, #ffffff, #e4e4e4);
+    background-image: -o-linear-gradient(top, #ffffff, #e4e4e4);
+    background-image: -ms-linear-gradient(top, #ffffff, #e4e4e4);
+    background-image: linear-gradient(top, #ffffff, #e4e4e4);
+    filter: progid:DXImageTransform.Microsoft.gradient(gradientType=0, startColorstr='#ffffff', endColorstr='#e4e4e4');
+}
+
+.cke_toolbox_collapser:hover
+{
+    background: #ccc;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#f2f2f2), to(#ccc));
+    background-image: -moz-linear-gradient(top, #f2f2f2, #ccc);
+    background-image: -webkit-linear-gradient(top, #f2f2f2, #ccc);
+    background-image: -o-linear-gradient(top, #f2f2f2, #ccc);
+    background-image: -ms-linear-gradient(top, #f2f2f2, #ccc);
+    background-image: linear-gradient(top, #f2f2f2, #ccc);
+    filter: progid:DXImageTransform.Microsoft.gradient(gradientType=0, startColorstr='#f2f2f2', endColorstr='#cccccc');
+}
+
+.cke_toolbox_collapser.cke_toolbox_collapser_min
+{
+    margin: 0 2px 4px;
+}
+
+.cke_rtl .cke_toolbox_collapser
+{
+    float: left;
+}
+
+/* The CSS arrow, which belongs to the toolbar collapser. */
+.cke_toolbox_collapser .cke_arrow
+{
+    display: inline-block;
+
+    /* Pure CSS Arrow */
+    height: 0;
+    width: 0;
+    font-size: 0;
+    margin-top: 1px;
+    border-left: 3px solid transparent;
+    border-right: 3px solid transparent;
+    border-bottom: 3px solid #474747;
+    border-top: 3px solid transparent;
+}
+
+.cke_toolbox_collapser.cke_toolbox_collapser_min .cke_arrow
+{
+    margin-top: 4px;
+    border-bottom-color: transparent;
+    border-top-color: #474747;
+}
+
+.cke_hc .cke_toolbox_collapser .cke_arrow
+{
+    font-size: 8px;
+    width: auto;
+    border: 0;
+    margin-top: 0;
+    margin-right: 2px;
+}
